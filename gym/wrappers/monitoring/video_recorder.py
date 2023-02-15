@@ -65,6 +65,7 @@ class VideoRecorder:
                     f'Disabling video recorder because {env} neither supports video mode "rgb_array" nor "ansi".'
                 )
                 # Whoops, turns out we shouldn't be enabled after all
+                print("No rgbarray in modes, disabling myself!!")
                 self.enabled = False
                 return
 
@@ -243,6 +244,7 @@ class VideoRecorder:
             self.encoder.capture_frame(frame)
         except error.InvalidFrame as e:
             logger.warn("Tried to pass invalid video frame, marking as broken: %s", e)
+            print("Bad frame, breaking!!")
             self.broken = True
         else:
             self.empty = False
