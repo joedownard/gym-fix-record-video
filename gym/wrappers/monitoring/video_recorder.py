@@ -412,7 +412,6 @@ class ImageEncoder:
             self.proc = subprocess.Popen(self.cmdline, stdin=subprocess.PIPE)
 
     def capture_frame(self, frame):
-        print("capping frame")
         if not isinstance(frame, (np.ndarray, np.generic)):
             raise error.InvalidFrame(
                 f"Wrong type {type(frame)} for {frame} (must be np.ndarray or np.generic)"
