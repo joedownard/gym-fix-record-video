@@ -35,6 +35,7 @@ class VideoRecorder:
     """
 
     def __init__(self, env, path=None, metadata=None, enabled=True, base_path=None):
+        print("initing vid reco")
         modes = env.metadata.get("render_modes", [])
 
         # backward-compatibility mode:
@@ -52,6 +53,7 @@ class VideoRecorder:
 
         # Don't bother setting anything else if not enabled
         if not self.enabled:
+            print("somehow become unenabled")
             return
 
         self.ansi_mode = False
@@ -145,6 +147,7 @@ class VideoRecorder:
     def capture_frame(self):
         """Render the given `env` and add the resulting frame to the video."""
         if not self.functional:
+            print("not functional?")
             return
         if self._closed:
             logger.warn(
@@ -157,6 +160,7 @@ class VideoRecorder:
         frame = self.env.render(mode=render_mode)
 
         if frame is None:
+            print("no frame, something wrong")
             if self._async:
                 return
             else:
@@ -404,6 +408,7 @@ class ImageEncoder:
             self.proc = subprocess.Popen(self.cmdline, stdin=subprocess.PIPE)
 
     def capture_frame(self, frame):
+        print("capping frame")
         if not isinstance(frame, (np.ndarray, np.generic)):
             raise error.InvalidFrame(
                 f"Wrong type {type(frame)} for {frame} (must be np.ndarray or np.generic)"

@@ -95,6 +95,7 @@ class RecordVideo(gym.Wrapper):
             self.episode_id += 1
 
         if self.recording:
+            print("am recoing, getting frame")
             self.video_recorder.capture_frame()
             self.recorded_frames += 1
             if self.video_length > 0:
@@ -105,6 +106,7 @@ class RecordVideo(gym.Wrapper):
                     if dones:
                         self.close_video_recorder()
                 elif dones[0]:
+                    print("ep done, close reco")
                     self.close_video_recorder()
 
         elif self._video_enabled():
