@@ -55,6 +55,7 @@ class RecordVideo(gym.Wrapper):
     def reset(self, **kwargs):
         observations = super().reset(**kwargs)
         if not self.recording and self._video_enabled():
+            print("trying to start vid reco")
             self.start_video_recorder()
         return observations
 
