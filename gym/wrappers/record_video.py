@@ -54,6 +54,7 @@ class RecordVideo(gym.Wrapper):
 
     def reset(self, **kwargs):
         observations = super().reset(**kwargs)
+        self.episode_id += 1
         if self.recording:
             self.close_video_recorder()
         if not self.recording and self._video_enabled():
@@ -90,11 +91,6 @@ class RecordVideo(gym.Wrapper):
 
         # increment steps and episodes
         self.step_id += 1
-        if not self.is_vector_env:
-            if dones:
-                self.episode_id += 1
-        elif dones[0]:
-            self.episode_id += 1
 
         if self.recording:
             self.video_recorder.capture_frame()
