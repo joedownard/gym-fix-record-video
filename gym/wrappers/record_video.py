@@ -56,6 +56,7 @@ class RecordVideo(gym.Wrapper):
         observations = super().reset(**kwargs)
         self.episode_id += 1
         if self.recording:
+            print(f"closing recorder after {self.recorded_frames} frames")
             self.close_video_recorder()
         if not self.recording and self._video_enabled():
             print("trying to start vid reco")
@@ -95,16 +96,6 @@ class RecordVideo(gym.Wrapper):
         if self.recording:
             self.video_recorder.capture_frame()
             self.recorded_frames += 1
-            if self.video_length > 0:
-                if self.recorded_frames > self.video_length:
-                    self.close_video_recorder()
-            else:
-                if not self.is_vector_env:
-                    if dones:
-                        self.close_video_recorder()
-                elif dones[0]:
-                    print("ep done, close reco")
-                    self.close_video_recorder()
 
         elif self._video_enabled():
             self.start_video_recorder()
