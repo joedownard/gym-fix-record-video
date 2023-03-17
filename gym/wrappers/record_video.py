@@ -22,6 +22,7 @@ class RecordVideo(gym.Wrapper):
         step_trigger: Callable[[int], bool] = None,
         video_length: int = 0,
         name_prefix: str = "rl-video",
+        starting_episode = 0,
     ):
         super().__init__(env)
 
@@ -50,7 +51,7 @@ class RecordVideo(gym.Wrapper):
         self.recording = False
         self.recorded_frames = 0
         self.is_vector_env = getattr(env, "is_vector_env", False)
-        self.episode_id = 0
+        self.episode_id = starting_episode
 
     def reset(self, **kwargs):
         observations = super().reset(**kwargs)
